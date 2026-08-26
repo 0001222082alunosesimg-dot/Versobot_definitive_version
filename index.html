@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot de IA</title>
+    <title>El grande VersoBot!</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .chat-container { width: 100%; max-width: 600px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px; }
@@ -20,9 +20,9 @@
 <body>
 
 <div class="chat-container">
-    <h2>Conversa com a IA</h2>
+    <h2>Conversa com VersoBot</h2>
     <div class="chat-box" id="chatBox">
-        <div class="message bot-msg">Olá! Digite uma mensagem para iniciar.</div>
+        <div class="message bot-msg">Digite uma mensagem para iniciar.</div>
     </div>
     <div class="input-area">
         <input type="text" id="userInput" placeholder="Digite sua mensagem aqui..." onkeypress="handleKeyPress(event)">
@@ -31,7 +31,7 @@
 </div>
 
 <script>
-// Histórico para evitar repetição (Igual ao dicionário do Python)
+
 const historicoRespostas = {
     saudacoes: [],
     despedidas: [],
@@ -40,11 +40,10 @@ const historicoRespostas = {
     piadas: []
 };
 
-// Listas de respostas e palavras-chave do seu código Python
 const bancoDados = {
     saudacoes: {
         chaves: ['oi', 'ola', 'olá', 'opa', 'bom', 'bão', 'bao'],
-        respostas: ['Oi, tudo bem?', 'Oi, como vai?', 'Olá, como posso ajudá-lo?', 'Opa! No que posso ajudar?']
+        respostas: ['Oi, tudo bem?', 'Hola! Como vai?', 'Olá, como posso ajudá-lo?', 'Opa! No que posso ajudar?', 'No que posso servir?']
     },
     despedidas: {
         chaves: ["tchau", "adeus", "falou", 'fui', 'até mais', 'até logo'],
@@ -60,8 +59,9 @@ const bancoDados = {
     azar: {
         chaves: ['impacta', 'impacto', 'importância', 'importante', 'desafio', 'contras'],
         respostas: [
-            'Segundo o SENAC, o desafio que a IA nos traz é a sua aplicação em áreas sensíveis da vida, como Saúde, Segurança e Finanças. Em alguns casos, a IA recebe certas responsabilidades que precisariam de intervenção humana, como uma tomada de decisão sobre um empréstimo ou a identificação de um possível delito.',
-            'Segundo o SENAC, Um dos principais desafios que a IA nos impõe é o descompasso considerável entre o avanço tecnológico e a nossa capacidade de avaliar novas tecnologias.'
+            'Segundo o SENAC, as IAs têm tirado muita responsabilidade humana de decisões que deveriam ser tomadas por eles, o que cria certa acomodação nas pessoas.',
+            'Segundo o SENAC, Um dos principais desafios que a IA nos impõe é o descompasso considerável entre o avanço tecnológico e a nossa capacidade de avaliar novas tecnologias.',
+            'Segundo o Quantum Records, um portal dgital cient´fico sem fins lucrativos, a IA (Inteligência Artificial) atrapalha no desenvolvimento cognitivo da população, pois cria uma acomodação ao pensamento assistido.'
         ]
     },
     piadas: {
@@ -82,7 +82,6 @@ const bancoDados = {
     }
 };
 
-// Função para escolher a resposta sem repetir (Equivalente ao escolher_resposta do Python)
 function escolherResposta(categoria, respostasLista) {
     let usadas = historicoRespostas[categoria];
     let disponiveis = respostasLista.filter(r => !usadas.includes(r));
@@ -130,11 +129,9 @@ function enviarMensagem() {
 
     const chatBox = document.getElementById('chatBox');
 
-    // Adiciona msg do usuário na tela
     chatBox.innerHTML += `<div class="message user-msg">${mensagemUsuario}</div>`;
     input.value = '';
 
-    // Processa a resposta e adiciona na tela
     setTimeout(() => {
         const respostaBot = obterRespostaBot(mensagemUsuario);
         chatBox.innerHTML += `<div class="message bot-msg">${respostaBot}</div>`;
