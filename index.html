@@ -126,6 +126,8 @@ function obterRespostaBot(mensagem) {
         return escolherResposta('piadas', bancoDados.piadas.respostas);
     } else if (bancoDados.politicas.chaves.some(p => contemExpressao(mensagem, p))) {
         return "Prefiro não me meter nesse assunto. Que tal perguntar sobre IAs?";
+    } else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r)))
+        return escolherResposta('risadas', bancoDados.risadas.respostas)
     }
     
     return "Não tenho acervo suficiente para responder essa pergunta. Por favor, faça perguntas abrangentes sobre o tema do trabalho.";
