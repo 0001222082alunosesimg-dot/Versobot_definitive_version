@@ -104,8 +104,10 @@ function escolherResposta(categoria, respostasLista) {
 }
 
 function contemExpressao(mensagem, expressao) {
-    const padrao = new RegExp(`(?<!\\w)${expressao.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}(?!\\w)`, 'i');
-    return padrao.test(mensagem);
+    const msgMinuscula = mensagem.toLowerCase();
+    const termoMinusculo = expressao.toLowerCase();
+    const padrao = new RegExp('\\b' + termoMinusculo.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b', 'i');
+    return padrao.test(msgMinuscula);
 }
 
 function obterRespostaBot(mensagem) {
