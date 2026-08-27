@@ -105,8 +105,6 @@ function escolherResposta(categoria, respostasLista) {
 function contemExpressao(mensagem, expressao) {
     const msgMinuscula = mensagem.toLowerCase();
     const termoMinusculo = expressao.toLowerCase();
-    
-    // Procura por palavra isolada sem quebrar navegadores antigos
     const padrao = new RegExp('\\b' + termoMinusculo.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b', 'i');
     return padrao.test(msgMinuscula);
 }
