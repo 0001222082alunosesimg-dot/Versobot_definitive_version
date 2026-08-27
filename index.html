@@ -39,6 +39,7 @@ const historicoRespostas = {
     piadas: [],
     risadas: [],
     politicas: []
+    drogas: []
 };
 
 const bancoDados = {
@@ -85,6 +86,10 @@ const bancoDados = {
     risadas: {
         chaves: ['kkk', 'kjkj', 'hahaha', 'haha', 'ha'],
         respostas: ['Ha! Te fiz rir.', 'Não precisa disso, eu sei que sou el melhor', 'Yo soy el mas divertido del Brasil.', 'Isso foi por que você ouviu a mais sem graça.', 'Rindo do quê? Não tem graça...']
+    },
+    drogas: {
+        chaves: ['roblox', 'cigarro', 'maconha', 'droga', 'grêmio', 'gremio'],
+        respostas: ['Cara, isso é uma droga das pesadas.', 'Pare! Isso é perigoso para você.', 'PROERD é o programa...']
     }
 };
 
@@ -124,6 +129,8 @@ function obterRespostaBot(mensagem) {
         return escolherResposta('politicas', bancoDados.politicas.respostas);
     } else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) {
         return escolherResposta('risadas', bancoDados.risadas.respostas);
+    } else if (bancoDados.drogas.chaves.some(g => contemExpressao(mensagem, g))) {
+        return escolherResposta('drogas', bancoDados.drogas.respostas);
     }
     
     return "Não tenho acervo suficiente para responder essa pergunta. Por favor, faça perguntas abrangentes sobre o tema do trabalho.";
