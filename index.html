@@ -7,8 +7,8 @@
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .chat-container { width: 100%; max-width: 600px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px; }
-        .chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 4px; background: #fafafa; }
-        .message { margin: 10px 0; padding: 8px 12px; border-radius: 4px; max-width: 80%; }
+        .chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 4px; background: #fafafa; display: flex; flex-direction: column; }
+        .message { margin: 10px 0; padding: 8px 12px; border-radius: 4px; max-width: 80%; word-wrap: break-word; }
         .user-msg { background: #d1e7dd; align-self: flex-end; margin-left: auto; text-align: right; }
         .bot-msg { background: #e2e3e5; align-self: flex-start; text-align: left; }
         .input-area { display: flex; gap: 10px; }
@@ -31,13 +31,14 @@
 </div>
 
 <script>
-
 const historicoRespostas = {
     saudacoes: [],
     despedidas: [],
     IA: [],
     azar: [],
     piadas: [],
+    risadas: [],
+    politicas: [],
     risadas: []
 };
 
@@ -62,7 +63,7 @@ const bancoDados = {
         respostas: [
             'Segundo o SENAC, as IAs têm tirado muita responsabilidade humana de decisões que deveriam ser tomadas por eles, o que cria certa acomodação nas pessoas.',
             'Segundo o SENAC, Um dos principais desafios que a IA nos impõe é o descompasso considerável entre o avanço tecnológico e a nossa capacidade de avaliar novas tecnologias.',
-            'Segundo o Quantum Records, um portal dgital cient´fico sem fins lucrativos, a IA (Inteligência Artificial) atrapalha no desenvolvimento cognitivo da população, pois cria uma acomodação ao pensamento assistido.'
+            'Segundo o Quantum Records, um portal digital científico sem fins lucrativos, a IA (Inteligência Artificial) atrapalha no desenvolvimento cognitivo da população, pois cria uma acomodação ao pensamento assistido.'
         ]
     },
     piadas: {
@@ -80,19 +81,13 @@ const bancoDados = {
     },
     politicas: {
         chaves: ['guerra', 'presidente', 'eleições', 'eleiçoes', 'voto', 'vota', 'votar', 'candidato', 'político', 'politico'],
-        respostas: ['Prefiro não me meter nesse assunto. Que tal perguntar sobre IAs?'
-        ]
-        
+        respostas: ['Prefiro não me meter nesse assunto. Que tal perguntar sobre IAs?']
     },
     risadas: {
         chaves: ['kkk', 'kjkj', 'hahaha', 'haha', 'ha'],
-        respostas: ['Ha! Te fiz rir.', 
-                    'Não precisa disso, eu seu que sou el mejor', 
-                    'Yo soy el mas divertido del Brasil.', 
-                    'Isso foi por que você ouviu a mais sem graça.', 'Rindo do quê? Não tem graça...'
-                   ]
-};
-
+        respostas: ['Ha! Te fiz rir.', 'Não precisa disso, eu sei que sou el melhor', 'Yo soy el mas divertido del Brasil.', 'Isso foi por que você ouviu a mais sem graça.', 'Rindo do quê? Não tem graça...']
+    }
+}; 
 
 function escolherResposta(categoria, respostasLista) {
     let usadas = historicoRespostas[categoria];
@@ -125,7 +120,7 @@ function obterRespostaBot(mensagem) {
     } else if (bancoDados.piadas.chaves.some(c => contemExpressao(mensagem, c))) {
         return escolherResposta('piadas', bancoDados.piadas.respostas);
     } else if (bancoDados.politicas.chaves.some(p => contemExpressao(mensagem, p))) {
-        return "Prefiro não me meter nesse assunto. Que tal perguntar sobre IAs?";
+        return escolherResposta('politicas', bancoDados.politicas.respostas);
     } else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) {
         return escolherResposta('risadas', bancoDados.risadas.respostas);
     }
@@ -142,6 +137,7 @@ function enviarMensagem() {
 
     chatBox.innerHTML += `<div class="message user-msg">${mensagemUsuario}</div>`;
     input.value = '';
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     setTimeout(() => {
         const respostaBot = obterRespostaBot(mensagemUsuario);
