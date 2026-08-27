@@ -38,8 +38,7 @@ const historicoRespostas = {
     azar: [],
     piadas: [],
     risadas: [],
-    politicas: [],
-    risadas: []
+    politicas: []
 };
 
 const bancoDados = {
@@ -76,7 +75,7 @@ const bancoDados = {
             '"Alô, eu gostaria de falar com o João, por favor.". "É o próprio.". "Oi, é o Próprio falando?". "Sim!". "Passa pro João, por favor."',
             'Tinha dois caminhões voando. Um deles caiu. Por que o outro continuou voando? Porque era caminhão-pipa.',
             'O bêbado atravessa a rua fora da faixa e um carro buzina para ele: “Bi-bi!”. O bêbado responde: “Eu também bibi, e não foi pouco não”.',
-            'Por que a aranha é o animal mais carente do mundo? Porque ela é um aracneedyou (kitunts).'
+            'Por que a aranha é o animal mais carente do mundo? Because ela é um aracneedyou (kitunts).'
         ]
     },
     politicas: {
@@ -87,7 +86,7 @@ const bancoDados = {
         chaves: ['kkk', 'kjkj', 'hahaha', 'haha', 'ha'],
         respostas: ['Ha! Te fiz rir.', 'Não precisa disso, eu sei que sou el melhor', 'Yo soy el mas divertido del Brasil.', 'Isso foi por que você ouviu a mais sem graça.', 'Rindo do quê? Não tem graça...']
     }
-}; 
+};
 
 function escolherResposta(categoria, respostasLista) {
     let usadas = historicoRespostas[categoria];
@@ -106,6 +105,8 @@ function escolherResposta(categoria, respostasLista) {
 function contemExpressao(mensagem, expressao) {
     const msgMinuscula = mensagem.toLowerCase();
     const termoMinusculo = expressao.toLowerCase();
+    
+    // Procura por palavra isolada sem quebrar navegadores antigos
     const padrao = new RegExp('\\b' + termoMinusculo.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b', 'i');
     return padrao.test(msgMinuscula);
 }
