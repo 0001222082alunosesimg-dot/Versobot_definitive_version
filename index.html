@@ -42,7 +42,7 @@ const historicoRespostas = {
 
 const bancoDados = {
     saudacoes: {
-        chaves: ['oi', 'ola', 'olá', 'opa', 'bom', 'bão', 'bao'],
+        chaves: ['oi', 'ola', 'olá', 'opa', 'bom', 'bão', 'bao', 'hola', 'hi', 'hello'],
         respostas: ['Oi, tudo bem?', 'Hola! Como vai?', 'Olá, como posso ajudá-lo?', 'Opa! No que posso ajudar?', 'No que posso servir?']
     },
     despedidas: {
@@ -65,7 +65,7 @@ const bancoDados = {
         ]
     },
     piadas: {
-        chaves: ['piada', 'piadas', 'humor'],
+        chaves: ['piada', 'piadas', 'humor', 'comédia', 'comedia'],
         respostas: [
             'Sabe por que a galinha atravessou a rua? Para ver a missa do galo!(e todos riem)',
             'Um empregado falou para o chefe: "É melhor o senhor me dar um aumento logo, pois saiba o senhor que tem três empresas atrás de mi...", então o chefe perguntou: "Que empresas?". Duas horas depois, o funcionário estava na rua por ter respondido "A CEMIG, a COPASA e a TIM"',
@@ -79,8 +79,13 @@ const bancoDados = {
     },
     politicas: {
         chaves: ['guerra', 'presidente', 'eleições', 'eleiçoes', 'voto', 'vota', 'votar', 'candidato', 'político', 'politico']
+    },
+    risadas: {
+        chaves: ['kkk', 'kjkj', 'hahaha', 'haha', 'ha']
+        respostas: ['Ha! Te fiz rir.', 'Não precisa disso, eu seu que sou el mejor', 'Yo soy el mas divertido del Brasil.', 'Isso foi por que você ouviu a mais sem graça.', 'Rindo do quê? Não tem graça...']
     }
 };
+
 
 function escolherResposta(categoria, respostasLista) {
     let usadas = historicoRespostas[categoria];
@@ -96,13 +101,11 @@ function escolherResposta(categoria, respostasLista) {
     return resposta;
 }
 
-// Função para verificar se a palavra isolada está no texto (Equivalente ao Regex do Python)
 function contemExpressao(mensagem, expressao) {
     const padrao = new RegExp(`(?<!\\w)${expressao.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}(?!\\w)`, 'i');
     return padrao.test(mensagem);
 }
 
-// Lógica principal do bot (Equivalente ao obter_resposta_bot do Python)
 function obterRespostaBot(mensagem) {
     if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) {
         return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
