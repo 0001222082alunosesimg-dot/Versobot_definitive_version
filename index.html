@@ -133,7 +133,6 @@ function obterRespostaBot(mensagem) {
     return "Não tenho acervo suficiente para responder essa pergunta. Por favor, faça perguntas abrangentes sobre o tema do trabalho.";
 }
 
-// Funções para controlar a tela do chat
 function enviarMensagem() {
     const input = document.getElementById('userInput');
     const mensagemUsuario = input.value.trim();
@@ -147,8 +146,8 @@ function enviarMensagem() {
     setTimeout(() => {
         const respostaBot = obterRespostaBot(mensagemUsuario);
         chatBox.innerHTML += `<div class="message bot-msg">${respostaBot}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight; // Rola o chat para baixo
-    }, 400);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 500);
 }
 
 function handleKeyPress(event) {
