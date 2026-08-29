@@ -84,20 +84,23 @@ function renderizarMensagem(texto, classe) {
 
 function enviarMensagem() {
     const input = document.getElementById('userInput');
-    const mensagemTexto = input.value.trim();
-    if (mensagemTexto === '') return;
+    if (!input) return; 
 
+    const mensagemTexto = input.value.trim();
+    if (!mensagemTexto) return; 
+    
     renderizarMensagem(mensagemTexto, 'user-msg');
     input.value = '';
 
     setTimeout(() => {
-        const respostaBot = obterRespostaBot(mensagemTexto);
+        const respostaBot = obterRespostaBot(mensagemTexto) || "Desculpe, não entendi.";
         renderizarMensagem(respostaBot, 'bot-msg');
     }, 400);
 }
 
 function handleKeyPress(event) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
         enviarMensagem();
     }
 }
