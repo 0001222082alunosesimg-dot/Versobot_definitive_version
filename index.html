@@ -120,11 +120,12 @@ const bancoDados = {
 };
 
 function contemExpressao(mensagem, expressao) {
-    const msgMinuscula = message => mensagem.toLowerCase();
+    const msgMinuscula = mensagem.toLowerCase();
     const termoMinusculo = expressao.toLowerCase();
     const padrao = new RegExp('(?<=\\s|^)' + termoMinusculo.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '(?=\\s|$|\\?|\\!|\\.)', 'i');
-    return padrao.test(msgMinuscula());
+    return padrao.test(msgMinuscula);
 }
+
 
 function escolherResposta(categoria, listaRespostas) {
     let disponiveis = listaRespostas.filter(r => !historicoRespostas[categoria].includes(r));
