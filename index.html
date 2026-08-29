@@ -1,35 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El grande VersoBot!</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .chat-container { width: 100%; max-width: 600px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px; }
-        .chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 4px; background: #fafafa; display: flex; flex-direction: column; }
-        .message { margin: 10px 0; padding: 8px 12px; border-radius: 4px; max-width: 80%; word-wrap: break-word; }
-        .user-msg { background: #d1e7dd; align-self: flex-end; margin-left: auto; text-align: right; }
-        .bot-msg { background: #e2e3e5; align-self: flex-start; text-align: left; }
-        .input-area { display: flex; gap: 10px; }
-        input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 10px 20px; background: #0d6efd; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background: #0b5ed7; }
-    </style>
-</head>
-<body>
-
-<div class="chat-container">
-    <h2>Conversa com VersoBot</h2>
-    <div class="chat-box" id="chatBox">
-        <div class="message bot-msg">Digite uma mensagem para iniciar.</div>
-    </div>
-    <div class="input-area">
-        <input type="text" id="userInput" placeholder="Digite sua mensagem aqui..." onkeypress="handleKeyPress(event)">
-        <button onclick="enviarMensagem()">Enviar</button>
-    </div>
-</div>
-
 <script>
 const historicoRespostas = {
     saudacoes: [],
@@ -45,24 +13,11 @@ const historicoRespostas = {
 const bancoDados = {
     saudacoes: {
         chaves: ['oi', 'ola', 'olá', 'opa', 'bom', 'bão', 'bao', 'hola', 'hi', 'hello'],
-        respostas: [
-            'Oi', 
-            'tudo bem?', 
-            'Hola! Como vai?', 
-            'Olá, como posso ajudá-lo?', 
-            'Opa! No que posso ajudar?', 
-            'Bom dia, no que posso servir?'
-        ]
+        respostas: ['Oi', 'tudo bem?', 'Hola! Como vai?', 'Olá, como posso ajudá-lo?', 'Opa! No que posso ajudar?', 'Bom dia, no que posso servir?']
     },
     despedidas: {
         chaves: ["tchau", "adeus", "falou", 'fui', 'até mais', 'até logo'],
-        respostas: [
-            'Tchau', 
-            'Adeus', 
-            'Adios, mi amigo', 
-            'Tchauzinho', 
-            'Falou, rapá!'
-        ]
+        respostas: ['Tchau', 'Adeus', 'Adios, mi amigo', 'Tchauzinho', 'Falou, rapá!']
     },
     IA: {
         chaves: ['ia', 'ias', 'ai', 'ais', 'inteligência artificial', 'inteligencia artificial', 'inteligências artificiais', 'inteligencias artificiais'],
@@ -99,21 +54,16 @@ const bancoDados = {
     },
     risadas: {
         chaves: ['kkk', 'kjkj', 'hahaha', 'haha', 'ha'],
-        respostas: [
-            'Ha! Te fiz rir.', 
-            'Não precisa disso, eu sei que sou el melhor', 
-            'Yo soy el mas divertido del Brasil.', 'Isso foi por que você ouviu a mais sem graça.', 
-            'Rindo do quê? Não tem graça...'
-        ]
+        respostas: ['Ha! Te fiz rir.', 'Não precisa disso, eu sei que sou el melhor', 'Yo soy el mas divertido del Brasil.', 'Isso foi por que você ouviu a mais sem graça.', 'Rindo do quê? Não tem graça...']
     },
     coisitas_curiositas: {
         chaves: ['curiosidade', 'curiosidades', 'curioso', 'interessante', 'legal'],
         respostas: [
-            'Você sabia que o Everest fica ligeiramente mais alto a cada ano por conta do movimento convergente das placas tectônicas?', 
+            'Você sabia que o Everest fica ligeiramente mais alto a cada ano por conta do movimento convergente das placas tectônicas?',
             'Você sabia que a Antártida é o maior deserto do mundo, devido à falta de precipitação?',
             'Por mais que seja contraintuintivo, existe intoxicção por água, se consumida em muita quantidade em pouco tempo.',
             'Você sabia que a luz do Sol leva oito minutos para chegar à Terra? Isso significa que, se o Sol explodisse agora, levaria oito minutos para vermos o começo da explosão.',
-            'Você sabia que a ideia de IA surgiu na década de 1950, quando o matemático Alan Turing fez uma proposta de pesquisar como criar um computador que pensasse autonomamente.'
+            'Você sabia que a idea de IA surgiu na década de 1950, quando o matemático Alan Turing fez uma proposta de pesquisar como criar um computador que pensasse autonomamente.'
         ]
     }
 };
@@ -123,6 +73,19 @@ function contemExpressao(mensagem, expressao) {
     const termoMinusculo = expressao.toLowerCase();
     const padrao = new RegExp('(?<=\\s|^)' + termoMinusculo.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '(?=\\s|$|\\?|\\!|\\.)', 'i');
     return padrao.test(msgMinuscula);
+}
+
+function escolherResposta(categoria, listaRespostas) {
+    let disponiveis = listaRespostas.filter(r => !historicoRespostas[categoria].includes(r));
+    if (disponiveis.length === 0) {
+        historicoRespostas[categoria] = [];
+        disponiveis = listaRespostas;
+    }
+    
+    const indiceAleatorio = Math.floor(Math.random() * disponiveis.length);
+    const respostaSelecionada = disponiveis[indiceAleatorio];
+    historicoRespostas[categoria].push(respostaSelecionada);
+    return respostaSelecionada;
 }
 
 function obterRespostaBot(mensagem) {
@@ -138,34 +101,39 @@ function obterRespostaBot(mensagem) {
         return escolherResposta('risadas', bancoDados.risadas.respostas);
     } else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) {
         return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
-    } else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) {
-        return escolherResposta('despedidas', bancoDados.despedidas.respostas);
     } else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) {
         return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
+    } else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) {
+        return escolherResposta('despedidas', bancoDados.despedidas.respostas);
     } else {
-        return "Desculpe, não entendi. Você pode perguntar sobre IA, curiosidades ou me pedir uma piada!";
+        return "Não entendi muito bem. Tente falar sobre IA, curiosidades, pedir uma piada ou me dar um 'oi'!";
     }
-}
-    
-    return "Não tenho acervo suficiente para responder essa pergunta. Por favor, faça perguntas abrangentes sobre o tema do trabalho.";
 }
 
 function enviarMensagem() {
     const input = document.getElementById('userInput');
-    const mensagemUsuario = input.value.trim();
-    if (!mensagemUsuario) return;
+    const mensagemTexto = input.value.trim();
+    
+    if (mensagemTexto === '') return;
 
-    const chatBox = document.getElementById('chatBox');
-
-    chatBox.innerHTML += `<div class="message user-msg">${mensagemUsuario}</div>`;
+    renderizarMensagem(mensagemTexto, 'user-msg');
     input.value = '';
-    chatBox.scrollTop = chatBox.scrollHeight;
 
     setTimeout(() => {
-        const respostaBot = obterRespostaBot(mensagemUsuario);
-        chatBox.innerHTML += `<div class="message bot-msg">${respostaBot}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }, 500);
+        const respostaBot = obterRespostaBot(mensagemTexto);
+        renderizarMensagem(respostaBot, 'bot-msg');
+    }, 400);
+}
+
+function renderizarMensagem(texto, classe) {
+    const chatBox = document.getElementById('chatBox');
+    const elementoMensagem = document.createElement('div');
+    
+    elementoMensagem.className = `message ${classe}`;
+    elementoMensagem.textContent = texto;
+    
+    chatBox.appendChild(elementoMensagem);
+    chatBox.scrollTop = chatBox.scrollHeight; 
 }
 
 function handleKeyPress(event) {
@@ -174,6 +142,3 @@ function handleKeyPress(event) {
     }
 }
 </script>
-
-</body>
-</html>
