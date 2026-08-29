@@ -73,7 +73,7 @@ const bancoDados = {
         ]
     },
     azar: {
-        chaves: ['impacta', 'impactam', 'impacto', 'impactos' 'desafio', 'desafios'],
+        chaves: ['impacta', 'impactam', 'impacto', 'impactos', 'desafio', 'desafios'],
         respostas: [
             'Segundo o SENAC, as IAs têm tirado muita responsabilidade humana de decisões que deveriam ser tomadas por eles, o que cria certa acomodação nas pessoas.',
             'Segundo o SENAC, Um dos principais desafios que a IA nos impõe é o descompasso considerável entre o avanço tecnológico e a nossa capacidade de avaliar novas tecnologias.',
@@ -118,47 +118,34 @@ const bancoDados = {
     }
 };
 
-function escolherResposta(categoria, respostasLista) {
-    let usadas = historicoRespostas[categoria];
-    let disponiveis = respostasLista.filter(r => !usadas.includes(r));
-
-    if (disponiveis.length === 0) {
-        historicoRespostas[categoria] = [];
-        disponiveis = respostasLista;
-    }
-
-    let resposta = disponiveis[Math.floor(Math.random() * disponiveis.length)];
-    historicoRespostas[categoria].push(resposta);
-    return resposta;
-}
-
 function contemExpressao(mensagem, expressao) {
     const msgMinuscula = mensagem.toLowerCase();
     const termoMinusculo = expressao.toLowerCase();
-    const padrao = new RegExp('\\b' + termoMinusculo.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\b', 'i');
+    const padrao = new RegExp('(?<=\\s|^)' + termoMinusculo.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '(?=\\s|$|\\?|\\!|\\.)', 'i');
     return padrao.test(msgMinuscula);
 }
 
 function obterRespostaBot(mensagem) {
-    if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) {
-        return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
-    } else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) {
-        return escolherResposta('despedidas', bancoDados.despedidas.respostas);
-    } else if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) {
+    if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) {
         return escolherResposta('IA', bancoDados.IA.respostas);
     } else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a))) {
         return escolherResposta('azar', bancoDados.azar.respostas);
-    } else if (bancoDados.piadas.chaves.some(c => contemExpressao(mensagem, c))) {
+    } else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) {
         return escolherResposta('piadas', bancoDados.piadas.respostas);
-    } else if (bancoDados.politicas.chaves.some(p => contemExpressao(mensagem, p))) {
+    } else if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) {
         return escolherResposta('politicas', bancoDados.politicas.respostas);
     } else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) {
         return escolherResposta('risadas', bancoDados.risadas.respostas);
-    } else if (bancoDados.drogas.chaves.some(g => contemExpressao(mensagem, g))) {
-        return escolherResposta('drogas', bancoDados.drogas.respostas);
-    } else if (bancoDados.coisitas_curiositas.chaves.some(t => contemExpressao(mensagem, t))) {
+    } else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) {
         return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
+    } else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) {
+        return escolherResposta('despedidas', bancoDados.despedidas.respostas);
+    } else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) {
+        return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
+    } else {
+        return "Desculpe, não entendi. Você pode perguntar sobre IA, curiosidades ou me pedir uma piada!";
     }
+}
     
     return "Não tenho acervo suficiente para responder essa pergunta. Por favor, faça perguntas abrangentes sobre o tema do trabalho.";
 }
