@@ -86,8 +86,10 @@ function enviarMensagem() {
     const input = document.getElementById('userInput');
     const mensagemTexto = input.value.trim();
     if (mensagemTexto === '') return;
+
     renderizarMensagem(mensagemTexto, 'user-msg');
     input.value = '';
+
     setTimeout(() => {
         const respostaBot = obterRespostaBot(mensagemTexto);
         renderizarMensagem(respostaBot, 'bot-msg');
@@ -95,4 +97,7 @@ function enviarMensagem() {
 }
 
 function handleKeyPress(event) {
-    if (event.key ===
+    if (event.key === 'Enter') {
+        enviarMensagem();
+    }
+}
