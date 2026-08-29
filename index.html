@@ -32,159 +32,62 @@
 
 <script>
 const historicoRespostas = {
-    saudacoes: [],
-    despedidas: [],
-    IA: [],
-    azar: [],
-    piadas: [],
-    risadas: [],
-    politicas: [],
-    coisitas_curiositas: []
+    saudacoes: [], despedidas: [], IA: [], azar: [], piadas: [], risadas: [], politicas: [], coisitas_curiositas: []
 };
 
 const bancoDados = {
-    saudacoes: {
-        chaves: ['oi', 'ola', 'olá', 'opa', 'bom', 'bão', 'bao', 'hola', 'hi', 'hello'],
-        respostas: [
-            'Oi', 
-            'tudo bem?', 
-            'Hola! Como vai?', 
-            'Olá, como posso ajudá-lo?', 
-            'Opa! No que posso ajudar?', 
-            'Bom dia, no que posso servir?'
-        ]
-    },
-    despedidas: {
-        chaves: ["tchau", "adeus", "falou", 'fui', 'até mais', 'até logo'],
-        respostas: [
-            'Tchau', 
-            'Adeus', 
-            'Adios, mi amigo', 
-            'Tchauzinho', 
-            'Falou, rapá!'
-        ]
-    },
-    IA: {
-        chaves: ['ia', 'ias', 'ai', 'ais', 'inteligência artificial', 'inteligencia artificial', 'inteligências artificiais', 'inteligencias artificiais'],
-        respostas: [
-            'Segundo a PUCRS, a IA em sua essência é a capacidade das máquinas de pensar como seres humanos. Ou seja, aprender, perceber e decidir quais caminhos seguir, de forma racional, diante de determinadas situações.',
-            'Segundo a AMAZON, a Inteligência Artificial (IA) é uma tecnologia transformadora que permite que as máquinas realizem tarefas de resolução de problemas semelhantes às humanas. Desde o reconhecimento de imagens e a geração de conteúdo criativo até a realização de previsões orientadas por dados, a IA permite que as empresas tomem decisões mais inteligentes em grande escala.',
-            'Uma IA é uma série de algorítimos treinados para realizar tarefas ao receber comandos.'
-        ]
-    },
-    azar: {
-        chaves: ['impacta', 'impactam', 'impacto', 'impactos', 'desafio', 'desafios'],
-        respostas: [
-            'Segundo o SENAC, as IAs têm tirado muita responsabilidade humana de decisões que deveriam ser tomadas por eles, o que cria certa acomodação nas pessoas.',
-            'Segundo o SENAC, Um dos principais desafios que a IA nos impõe é o descompasso considerável entre o avanço tecnológico e a nossa capacidade de avaliar novas tecnologias.',
-            'Segundo o Quantum Records, um portal digital científico sem fins lucrativos, a IA (Inteligência Artificial) atrapalha no desenvolvimento cognitivo da população, pois cria uma acomodação ao pensamento assistido.'
-        ]
-    },
-    piadas: {
-        chaves: ['piada', 'piadas', 'humor', 'comédia', 'comedia'],
-        respostas: [
-            'Sabe por que a galinha atravessou a rua? Para ver a missa do galo!(e todos riem)',
-            'Um empregado falou para o chefe: "É melhor o senhor me dar um aumento logo, pois saiba o senhor que tem três empresas atrás de mi...", então o chefe perguntou: "Que empresas?". Duas horas depois, o funcionário estava na rua por ter respondido "A CEMIG, a COPASA e a TIM"',
-            'Fiquei confuso depois da aula de inglês. Se “car” significa carro e “men” significa “homens”, então minha tia Carmen é um Transformer?',
-            'Um caipira chega à casa de um amigo que estava vendo TV e pergunta: E aí, firme? O outro responde: Não, futebor!',
-            '"Alô, eu gostaria de falar com o João, por favor.". "É o próprio.". "Oi, é o Próprio falando?". "Sim!". "Passa pro João, por favor."',
-            'Tinha dois caminhões voando. Um deles caiu. Por que o outro continuou voando? Because era caminhão-pipa.',
-            'O bêbado atravessa a rua fora da faixa e um carro buzina para ele: “Bi-bi!”. O bêbado responde: “Eu também bibi, e não foi pouco não”.',
-            'Por que a aranha é o animal mais carente do mundo? Because ela é um aracneedyou (kitunts).'
-        ]
-    },
-    politicas: {
-        chaves: ['guerra', 'presidente', 'eleições', 'eleiçoes', 'voto', 'vota', 'votar', 'candidato', 'político', 'politico'],
-        respostas: ['Prefiro não me meter nesse assunto. Que tal perguntar sobre IAs?']
-    },
-    risadas: {
-        chaves: ['kkk', 'kjkj', 'hahaha', 'haha', 'ha'],
-        respostas: [
-            'Ha! Te fiz rir.', 
-            'Não precisa disso, eu sei que sou el melhor', 
-            'Yo soy el mas divertido del Brasil.', 
-            'Isso foi por que você ouviu a mais sem graça.', 
-            'Rindo do quê? Não tem graça...'
-        ]
-    },
-    coisitas_curiositas: {
-        chaves: ['curiosidade', 'curiosidades', 'curioso', 'interessante', 'legal'],
-        respostas: [
-            'Você sabia que o Everest fica ligeiramente mais alto a cada ano por conta do movimento convergente das placas tectônicas?', 
-            'Você sabia que a Antártida é o maior deserto do mundo, devido à falta de precipitação?',
-            'Por mais que seja contraintuintivo, existe intoxicção por água, se consumida em muita quantidade em pouco tempo.',
-            'Você sabia que a luz do Sol leva oito minutos para chegar à Terra? Isso significa que, se o Sol explodisse agora, levaria oito minutos para vermos o começo da explosão.',
-            'Você sabia que a ideia de IA surgiu na década de 1950, quando o matemático Alan Turing fez uma proposta de pesquisar como criar um computador que pensasse autonomamente.'
-        ]
-    }
+    saudacoes: { chaves: ['oi','ola','olá','opa','bom','bão','bao','hola','hi','hello'], respostas: ['Oi','tudo bem?','Hola! Como vai?','Olá, como posso ajudá-lo?','Opa! No que posso ajudar?','Bom dia, no que posso servir?'] },
+    despedidas: { chaves: ["tchau","adeus","falou",'fui','até mais','até logo'], respostas: ['Tchau','Adeus','Adios, mi amigo','Tchauzinho','Falou, rapá!'] },
+    IA: { chaves: ['ia','ias','ai','ais','inteligência artificial','inteligencia artificial','inteligências artificiais','inteligencias artificiais'], respostas: ['Segundo a PUCRS, a IA em sua essência é a capacidade das máquinas de pensar como seres humanos.','Segundo a AMAZON, a Inteligência Artificial (IA) é uma tecnologia transformadora que permite que as máquinas realizem tarefas semelhantes às humanas.','Uma IA é uma série de algoritmos treinados para realizar tarefas ao receber comandos.'] },
+    azar: { chaves: ['impacta','impactam','impacto','impactos','desafio','desafios'], respostas: ['Segundo o SENAC, as IAs têm tirado muita responsabilidade humana de decisões que deveriam ser tomadas por eles.','Segundo o SENAC, um dos principais desafios que a IA nos impõe é o descompasso entre avanço tecnológico e nossa capacidade de avaliar.','Segundo o Quantum Records, a IA atrapalha no desenvolvimento cognitivo da população.'] },
+    piadas: { chaves: ['piada','piadas','humor','comédia','comedia'], respostas: ['Sabe por que a galinha atravessou a rua? Para ver a missa do galo!','Um empregado falou para o chefe: "É melhor o senhor me dar um aumento logo..."','Fiquei confuso depois da aula de inglês...','Um caipira chega à casa de um amigo...','"Alô, eu gostaria de falar com o João, por favor."','Tinha dois caminhões voando. Um deles caiu...','O bêbado atravessa a rua fora da faixa...','Por que a aranha é o animal mais carente do mundo?'] },
+    politicas: { chaves: ['guerra','presidente','eleições','eleiçoes','voto','vota','votar','candidato','político','politico'], respostas: ['Prefiro não me meter nesse assunto. Que tal perguntar sobre IAs?'] },
+    risadas: { chaves: ['kkk','kjkj','hahaha','haha','ha'], respostas: ['Ha! Te fiz rir.','Não precisa disso, eu sei que sou el melhor','Yo soy el mas divertido del Brasil.','Isso foi por que você ouviu a mais sem graça.','Rindo do quê? Não tem graça...'] },
+    coisitas_curiositas: { chaves: ['curiosidade','curiosidades','curioso','interessante','legal'], respostas: ['Você sabia que o Everest fica mais alto a cada ano?','Você sabia que a Antártida é o maior deserto do mundo?','Existe intoxicação por água se consumida em excesso.','A luz do Sol leva oito minutos para chegar à Terra.','A ideia de IA surgiu na década de 1950 com Alan Turing.'] }
 };
 
 function contemExpressao(mensagem, expressao) {
     const msgMinuscula = mensagem.toLowerCase();
     const termoMinusculo = expressao.toLowerCase();
-    const padrao = new RegExp('(?<=\\s|^)' + termoMinusculo.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '(?=\\s|$|\\?|\\!|\\.)', 'i');
-    return padrao.test(msgMinuscula);
+    return msgMinuscula.includes(termoMinusculo);
 }
-
 
 function escolherResposta(categoria, listaRespostas) {
     let disponiveis = listaRespostas.filter(r => !historicoRespostas[categoria].includes(r));
-    
-    if (disponiveis.length === 0) {
-        historicoRespostas[categoria] = [];
-        disponiveis = listaRespostas;
-    }
-    
+    if (disponiveis.length === 0) { historicoRespostas[categoria] = []; disponiveis = listaRespostas; }
     const indiceAleatorio = Math.floor(Math.random() * disponiveis.length);
     const respostaSelecionada = disponiveis[indiceAleatorio];
-    
     historicoRespostas[categoria].push(respostaSelecionada);
     return respostaSelecionada;
 }
 
 function obterRespostaBot(mensagem) {
-    if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) {
-        return escolherResposta('IA', bancoDados.IA.respostas);
-    } else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a))) {
-        return escolherResposta('azar', bancoDados.azar.respostas);
-    } else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) {
-        return escolherResposta('piadas', bancoDados.piadas.respostas);
-    } else if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) {
-        return escolherResposta('politicas', bancoDados.politicas.respostas);
-    } else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) {
-        return escolherResposta('risadas', bancoDados.risadas.respostas);
-    } else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) {
-        return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
-    } else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) {
-        return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
-    } else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) {
-        return escolherResposta('despedidas', bancoDados.despedidas.respostas);
-    } else {
-        return "Não entendi muito bem. Tente falar sobre IA, curiosidades, pedir uma piada ou me dar um 'oi'!";
-    }
+    if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) return escolherResposta('IA', bancoDados.IA.respostas);
+    else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a))) return escolherResposta('azar', bancoDados.azar.respostas);
+    else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) return escolherResposta('piadas', bancoDados.piadas.respostas);
+    else if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) return escolherResposta('politicas', bancoDados.politicas.respostas);
+    else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) return escolherResposta('risadas', bancoDados.risadas.respostas);
+    else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
+    else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
+    else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) return escolherResposta('despedidas', bancoDados.despedidas.respostas);
+    else return "Não entendi muito bem. Tente falar sobre IA, curiosidades, pedir uma piada ou me dar um 'oi'!";
 }
 
 function renderizarMensagem(texto, classe) {
     const chatBox = document.getElementById('chatBox');
     const elementoMensagem = document.createElement('div');
-    
     elementoMensagem.className = `message ${classe}`;
     elementoMensagem.textContent = texto;
-    
     chatBox.appendChild(elementoMensagem);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-
 function enviarMensagem() {
     const input = document.getElementById('userInput');
     const mensagemTexto = input.value.trim();
-    
     if (mensagemTexto === '') return;
-
     renderizarMensagem(mensagemTexto, 'user-msg');
     input.value = '';
-
     setTimeout(() => {
         const respostaBot = obterRespostaBot(mensagemTexto);
         renderizarMensagem(respostaBot, 'bot-msg');
@@ -192,7 +95,4 @@ function enviarMensagem() {
 }
 
 function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        enviarMensagem();
-    }
-}
+    if (event.key ===
