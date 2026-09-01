@@ -47,8 +47,14 @@ const bancoDados = {
 };
 
 function contemExpressao(mensagem, expressao) {
-    const regex = new RegExp(`\\b${expressao.toLowerCase()}\\b`, 'i');
-    return regex.test(mensagem.toLowerCase());
+    const msg = mensagem.toLowerCase();
+    const termo = expressao.toLowerCase();
+    if (termo.length <= 2) {
+        const regex = new RegExp(`\\b${termo}\\b`, 'i');
+        return regex.test(msg);
+    } else {
+        return msg.includes(termo);
+    }
 }
 
 function escolherResposta(categoria, listaRespostas) {
@@ -71,7 +77,7 @@ function obterRespostaBot(mensagem) {
         return escolherResposta('politicas', bancoDados.politicas.respostas);
     else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) 
         return escolherResposta('risadas', bancoDados.risadas.respostas);
-       else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) 
+    else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) 
         return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
     else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) 
         return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
