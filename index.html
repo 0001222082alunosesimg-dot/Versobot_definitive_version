@@ -61,15 +61,24 @@ function escolherResposta(categoria, listaRespostas) {
 }
 
 function obterRespostaBot(mensagem) {
-    if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) return escolherResposta('IA', bancoDados.IA.respostas);
-    else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a))) return escolherResposta('azar', bancoDados.azar.respostas);
-    else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) return escolherResposta('piadas', bancoDados.piadas.respostas);
-    else if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) return escolherResposta('politicas', bancoDados.politicas.respostas);
-    else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) return escolherResposta('risadas', bancoDados.risadas.respostas);
-    else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
-    else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
-    else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) return escolherResposta('despedidas', bancoDados.despedidas.respostas);
-    else return "Não entendi muito bem. Tente falar sobre IA, curiosidades, pedir uma piada ou me dar um 'oi'!";
+    if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) 
+        return escolherResposta('IA', bancoDados.IA.respostas);
+    else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a))) 
+        return escolherResposta('azar', bancoDados.azar.respostas);
+    else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) 
+        return escolherResposta('piadas', bancoDados.piadas.respostas);
+    else if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) 
+        return escolherResposta('politicas', bancoDados.politicas.respostas);
+    else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) 
+        return escolherResposta('risadas', bancoDados.risadas.respostas);
+       else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) 
+        return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
+    else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) 
+        return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
+    else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) 
+        return escolherResposta('despedidas', bancoDados.despedidas.respostas);
+    else 
+        return "Não entendi muito bem. Tente falar sobre IA, curiosidades, pedir uma piada ou me dar um 'oi'!";
 }
 
 function renderizarMensagem(texto, classe) {
