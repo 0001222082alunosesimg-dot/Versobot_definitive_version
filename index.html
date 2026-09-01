@@ -47,9 +47,8 @@ const bancoDados = {
 };
 
 function contemExpressao(mensagem, expressao) {
-    const msgMinuscula = mensagem.toLowerCase();
-    const termoMinusculo = expressao.toLowerCase();
-    return msgMinuscula.includes(termoMinusculo);
+    const regex = new RegExp(`\\b${expressao.toLowerCase()}\\b`, 'i');
+    return regex.test(mensagem.toLowerCase());
 }
 
 function escolherResposta(categoria, listaRespostas) {
