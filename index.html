@@ -69,6 +69,8 @@ function escolherResposta(categoria, listaRespostas) {
 }
 
 let ult = "";
+let ultCategoria = "";
+
 
 function obterRespostaBot(mensagem) {
     if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a))) 
@@ -96,20 +98,17 @@ function obterRespostaBot(mensagem) {
 }
 
 function save_ult(categoria, listaRespostas){
-    let resposta;
-    if (categoria){
-        resposta = escolherResposta(categoria, listaRespostas)
-    }else{
-        resposta = listaRespostas[0]
-    }
-    ult = resposta
+    let resposta = escolherResposta(categoria, listaRespostas);
+    ult = resposta;
+    ultCategoria = categoria;
     return resposta;
 }
 
-function capt_ult(categoria, listaRespostas){
-    let capt = Math.floor(Math.random()*save_ult)
+function capt_ult(){
+    if (!ultCategoria) return "Não tenho nada novo para mostrar!";
+    return escolherResposta(ultCategoria, bancoDados[ultCategoria].respostas);
 }
-
+    
 function renderizarMensagem(texto, classe) {
     const chatBox = document.getElementById('chatBox');
     const elementoMensagem = document.createElement('div');
