@@ -104,9 +104,16 @@ function save_ult(categoria, listaRespostas){
     return resposta;
 }
 
-function capt_ult(){
-    if (!ultCategoria) return "Não tenho nada novo para mostrar!";
-    return escolherResposta(ultCategoria, bancoDados[ultCategoria].respostas);
+let ultimaResposta = null;
+
+function capt_ult(categoria, listaRespostas) {
+  if (!listaRespostas || listaRespostas.length === 0) return null;
+  let resposta;
+  do {
+    resposta = listaRespostas[Math.floor(Math.random() * listaRespostas.length)];
+  } while (resposta === ultimaResposta && listaRespostas.length > 1);
+  ultimaResposta = resposta;
+  return resposta;
 }
     
 function renderizarMensagem(texto, classe) {
