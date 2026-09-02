@@ -87,7 +87,7 @@ function obterRespostaBot(mensagem) {
     else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) 
         return save_ult('despedidas', bancoDados.despedidas.respostas);
     else if (bancoDados.anaforas.chaves.some(an => contemExpressao(mensagem, an)))
-        return save_ult || "Não tenho nada a repetir"
+        return ult || "Não tenho nada a repetir"
     else 
         return "Não entendi muito bem. Sou um bot com respostas limitadas. Tente falar sobre IA, curiosidades, pedir uma piada ou me dar um 'oi'!";
 }
