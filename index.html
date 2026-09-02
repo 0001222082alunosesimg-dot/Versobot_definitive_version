@@ -92,7 +92,7 @@ function obterRespostaBot(mensagem) {
         return "Não entendi muito bem. Sou um bot com respostas limitadas. Tente falar sobre IA, curiosidades, pedir uma piada ou me dar um 'oi'!";
 }
 
-function save_ult(categoria, listaRespostas)
+function save_ult(categoria, listaRespostas){
     let resposta;
     if (categoria){
         resposta = escolherResposta(categoria, listaRespostas)
@@ -100,7 +100,7 @@ function save_ult(categoria, listaRespostas)
         resposta = listaRespostas[0]
     }ult = resposta
     return resposta;
-    
+}
 function renderizarMensagem(texto, classe) {
     const chatBox = document.getElementById('chatBox');
     const elementoMensagem = document.createElement('div');
