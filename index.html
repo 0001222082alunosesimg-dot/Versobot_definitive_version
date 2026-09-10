@@ -36,7 +36,7 @@ const historicoRespostas = {
 };
 
 const bancoDados = {
-    saudacoes: { chaves: ['oi','ola','olá','opa','bom','bão','bao','hola','hi','hello', 'hola'], respostas: ['Oi','Estás bíen?','Hola! Como vai?','Olá, como posso ajudá-lo?','Opa! No que puedo ajudar-te?','Bom dia, no que puedo servir?'] },
+    saudacoes: { chaves: ['oi','ola','olá','opa','bom','bão','bao','hola','hi','hello'], respostas: ['Oi','Estás bíen?','Hola! Como vai?','Olá, como posso ajudá-lo?','Opa! No que puedo ajudar-te?','Bom dia, no que puedo servir?'] },
     despedidas: { chaves: ["tchau","adeus","falou",'fui','até mais','até logo'], respostas: ['Tchau','Adeus','Adios, mi amigo','Tchauzinho','Falou, rapá!'] },
     IA: { chaves: ['ia','ias','ai','ais','inteligência artificial','inteligencia artificial','inteligências artificiais','inteligencias artificiais'], respostas: ['Segundo a PUCRS, a IA em sua essência é a capacidade das máquinas de pensar como seres humanos.','Segundo a AMAZON, a Inteligência Artificial (IA) é uma tecnologia transformadora que permite que as máquinas realizem tarefas semelhantes às humanas.','Uma IA é uma série de algoritmos treinados para realizar tarefas ao receber comandos.'] },
     azar: { chaves: ['impacta','impactam','impacto','impactos','desafio','desafios'], respostas: ['Segundo o SENAC, as IAs têm tirado muita responsabilidade humana de decisões que deveriam ser tomadas por eles.','Segundo o SENAC, um dos principais desafios que a IA nos impõe é o descompasso entre avanço tecnológico e nossa capacidade de avaliar.','Segundo o Quantum Records, a IA atrapalha no desenvolvimento cognitivo da população.'] },
@@ -44,10 +44,13 @@ const bancoDados = {
     politicas: { chaves: ['guerra','presidente','eleições','eleiçoes','voto','vota','votar','candidato','político','politico'], respostas: ['Prefiro não me meter nesse assunto. Que tal perguntar sobre IAs?'] },
     risadas: { chaves: ['kkk','kjkj','hahaha','haha','ha'], respostas: ['Ha! Te fiz rir.','Não precisa disso, eu sei que sou el melhor','Yo soy el mas divertido del Brasil.','Isso foi por que você ouviu a mais sem graça.','Rindo do quê? Não tem graça...'] },
     coisitas_curiositas: { chaves: ['curiosidade','curiosidades','curioso','interessante','legal'], respostas: ['Você sabia que o Everest fica mais alto a cada ano? Ele cresce cerca de 4 milímetros anualmente devido ao movimento das placas tectônicas.','Você sabia que a Antártida é o maior deserto do mundo? Um deserto é classificado pela quantidade de chuva que recebe, não pelo calor.','Existe intoxicação por água se consumida em excesso em pouco tempo.','A luz do Sol leva oito minutos para chegar à Terra. Se o Sol explodisse agora, só perceberíamos daqui a 8 minutos.','A ideia de IA surgiu na década de 1950 com Alan Turing, que criou um teste para avaliar se uma máquina pode pensar de verdade.'] },
-    anaforas: {chaves: ['repete','repita','de novo']},
-    tempo_g: {chaves: ['ovo ou galinha', 'ovo ou a galinha', 'galinha ou ovo', 'galinha ou o ovo'], respostas: ['El ovito foi el primerito! Los dinossauros botavam ovitos (yo acho)...', 'É óbvio que foi o ovo, meu! Os dinos!', 'O ovo. Mas se foi o ovo, quem botou ele?...']},
-    tempo_d: {chaves: ['ovo ou dinossauro', 'ovo ou o dinossauro', 'ovo ou os dinossauros', 'ovo ou dinossauros', 'ovo ou os dinos', 'ovo ou dino', 'ovo ou o dino', 'ovo ou dinos ], respostas: ['O ovos, peixes botavam ovos.', 'Los ovito vieram antes dos dinos!']}
+    anaforas: { chaves: ['repete','repita','de novo'], respostas: [] },
+    tempo_g: { chaves: ['ovo ou galinha', 'ovo ou a galinha', 'galinha ou ovo', 'galinha ou o ovo'], respostas: ['El ovito foi el primerito! Los dinossauros botavam ovitos (yo acho)...', 'É óbvio que foi o ovo, meu! Os dinos!', 'O ovo. Mas se foi o ovo, quem botou ele?...'] },
+    tempo_d: { chaves: ['ovo ou dinossauro', 'ovo ou o dinossauro', 'ovo ou os dinossauros', 'ovo ou dinossauros', 'ovo ou os dinos', 'ovo ou dino', 'ovo ou o dino', 'ovo ou dinos'], respostas: ['O ovos botavam ovos.', 'Los ovito vieram antes dos dinos!'] }
 };
+
+let ultResposta = "Digite uma mensagem para iniciar.";
+let ultCategoria = "saudacoes";
 
 function contemExpressao(mensagem, expressao) {
     const msg = mensagem.toLowerCase();
@@ -62,79 +65,67 @@ function contemExpressao(mensagem, expressao) {
 
 function escolherResposta(categoria, listaRespostas) {
     let disponiveis = listaRespostas.filter(r => !historicoRespostas[categoria].includes(r));
-    if (disponiveis.length === 0) { historicoRespostas[categoria] = []; disponiveis = listaRespostas; }
+    if (disponiveis.length === 0) { 
+        historicoRespostas[categoria] = []; 
+        disponiveis = listaRespostas; 
+    }
     const indiceAleatorio = Math.floor(Math.random() * disponiveis.length);
     const respostaSelecionada = disponiveis[indiceAleatorio];
     historicoRespostas[categoria].push(respostaSelecionada);
+    
+    ultResposta = respostaSelecionada;
+    ultCategoria = category = categoria;
+    
     return respostaSelecionada;
 }
 
-let ult = "";
-let ultCategoria = "";
-
-
 function obterRespostaBot(mensagem) {
-    if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a))) 
-        return save_ult('azar', bancoDados.azar.respostas);
-    else if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) 
-        return save_ult('IA', bancoDados.IA.respostas);
-    else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) 
-        return save_ult('piadas', bancoDados.piadas.respostas);
-    else if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) 
-        return save_ult('politicas', bancoDados.politicas.respostas);
-    else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) 
-        return save_ult('risadas', bancoDados.risadas.respostas);
-    else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) 
-        return save_ult('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
-    else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) 
-        return save_ult('saudacoes', bancoDados.saudacoes.respostas);
-    else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) 
-        return save_ult('despedidas', bancoDados.despedidas.respostas);
-    else if (bancoDados.anaforas.chaves.some(an => contemExpressao(mensagem, an)))
-        return ult || "Não tenho nada a repetir";
-    else 
-        return "Não entendi muito bem. Sou um bot com respostas limitadas. Tente falar sobre IA, curiosidades, pedir uma piada ou me dar um 'oi'!";
-}
+    if (bancoDados.anaforas.chaves.some(a => contemExpressao(mensagem, a))) {
+        return `Repetindo: "${ultResposta}"`;
+    }
+    if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a))) return escolherResposta('azar', bancoDados.azar.respostas);
+    if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) return escolherResposta('IA', bancoDados.IA.respostas);
+    if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) return escolherResposta('piadas', bancoDados.piadas.respostas);
+    if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) return escolherResposta('politicas', bancoDados.politicas.respostas);
+    if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) return escolherResposta('risadas', bancoDados.risadas.respostas);
+    if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
+    if (bancoDados.tempo_g.chaves.some(tg => contemExpressao(mensagem, tg))) return escolherResposta('tempo_g', bancoDados.tempo_g.respostas);
+    if (bancoDados.tempo_d.chaves.some(td => contemExpressao(mensagem, td))) return escolherResposta('tempo_d', bancoDados.tempo_d.respostas);
+    if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
+    if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) return escolherResposta('despedidas', bancoDados.despedidas.respostas);
 
-function save_ult(categoria, listaRespostas){
-    let resposta = escolherResposta(categoria, listaRespostas);
-    ult = resposta;
-    ultCategoria = categoria;
-    return resposta;
-}
-
-    
-function renderizarMensagem(texto, classe) {
-    const chatBox = document.getElementById('chatBox');
-    const elementoMensagem = document.createElement('div');
-    elementoMensagem.className = `message ${classe}`;
-    elementoMensagem.textContent = texto;
-    chatBox.appendChild(elementoMensagem);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    return "Não entendi muito bem. Que tal pedir uma piada ou falar sobre IA?";
 }
 
 function enviarMensagem() {
-    const input = document.getElementById('userInput');
-    if (!input) return; 
+    const input = document.getElementById("userInput");
+    const mensagem = input.value.trim();
+    if (!mensagem) return;
 
-    const mensagemTexto = input.value.trim();
-    if (!mensagemTexto) return; 
-    
-    renderizarMensagem(mensagemTexto, 'user-msg');
-    input.value = '';
+    adicionarMensagem(mensagem, "user-msg");
+    input.value = "";
 
     setTimeout(() => {
-        const respostaBot = obterRespostaBot(mensagemTexto) || "Desculpe, não entendi.";
-        renderizarMensagem(respostaBot, 'bot-msg');
+        const resposta = obterRespostaBot(mensagem);
+        adicionarMensagem(resposta, "bot-msg");
     }, 400);
 }
 
+function adicionarMensagem(texto, classe) {
+    const chatBox = document.getElementById("chatBox");
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `message ${classe}`;
+    msgDiv.innerText = texto;
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 function handleKeyPress(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
+    if (event.key === "Enter") {
         enviarMensagem();
     }
 }
 </script>
+
 </body>
 </html>
