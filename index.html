@@ -32,7 +32,7 @@
 
 <script>
 const historicoRespostas = {
-    saudacoes: [], despedidas: [], IA: [], azar: [], piadas: [], risadas: [], politicas: [], coisitas_curiositas: [], anaforas: [], tempo_g: []
+    saudacoes: [], despedidas: [], IA: [], azar: [], piadas: [], risadas: [], politicas: [], coisitas_curiositas: [], anaforas: [], tempo_g: [], hipoteses []
 };
 
 const bancoDados = {
@@ -45,7 +45,8 @@ const bancoDados = {
     risadas: { chaves: ['kkk','kjkj','hahaha','haha','ha'], respostas: ['Ha! Te fiz rir.','Não precisa disso, eu sei que sou el melhor','Yo soy el mas divertido del Brasil.','Isso foi por que você ouviu a mais sem graça.','Rindo do quê? Não tem graça...'] },
     coisitas_curiositas: { chaves: ['curiosidade','curiosidades','curioso','interessante','legal'], respostas: ['Você sabia que o Everest fica mais alto a cada ano? Ele cresce cerca de 4 milímetros anualmente devido ao movimento das placas tectônicas.','Você sabia que a Antártida é o maior deserto do mundo? Um deserto é classificado pela quantidade de chuva que recebe, não pelo calor.','Existe intoxicação por água se consumida em excesso em pouco tempo.','A luz do Sol leva oito minutos para chegar à Terra. Se o Sol explodisse agora, só perceberíamos daqui a 8 minutos.','A ideia de IA surgiu na década de 1950 com Alan Turing, que criou um teste para avaliar se uma máquina pode pensar de verdade.'] },
     anaforas: { chaves: ['repete','repita','de novo'], respostas: [] },
-    tempo_g: { chaves: ['ovo ou galinha', 'ovo ou a galinha', 'galinha ou ovo', 'galinha ou o ovo'], respostas: ['El ovito foi el primerito! Los dinossauros botavam ovitos (yo acho)...', 'É óbvio que foi o ovo, meu! Os dinos!', 'O ovo. Mas se foi o ovo, quem botou ele?...'] }
+    tempo_g: { chaves: ['ovo ou galinha', 'ovo ou a galinha', 'galinha ou ovo', 'galinha ou o ovo'], respostas: ['El ovito foi el primerito! Los dinossauros botavam ovitos (yo acho)...', 'É óbvio que foi o ovo, meu! Os dinos!', 'O ovo. Mas se foi o ovo, quem botou ele?...'] },
+    hipoteses: {chaves: ['hipotese', 'hipoteses', 'hipótese', 'hipóteses'], respostas: ['Pensando no impacto do uso excessivo das IAs, Yo pensei que a IA é uma ferramenta que veio para ficar, porém não deve ser usada como fonte única de pesquisa e de modo que não tire a autonomia do ser humano. Para isso, o uso responsável delas poderia ser conscientizado pelas escolas desde cedo.', 'Minha hipótese é que a IA é uma ferramenta que deve ser usada, mas de forma responsável e que não tire a autonomia humana.']}
 };
 
 let ultResposta = "Digite uma mensagem para iniciar.";
@@ -84,6 +85,8 @@ function obterRespostaBot(mensagem) {
     }
     else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a)))
         return escolherResposta('azar', bancoDados.azar.respostas);
+    else if (bancoDados.hipoteses.chaves.some(hip => contemExpressao(mensagem, hip)))
+        return escolherResposta('hipoteses', bancoDados.hipoteses.respostas);
     else if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) 
         return escolherResposta('IA', bancoDados.IA.respostas);
     else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) 
