@@ -89,7 +89,7 @@ function obterRespostaBot(mensagem) {
         return escolherResposta('hipoteses', bancoDados.hipoteses.respostas);
     else if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) 
         return escolherResposta('IA', bancoDados.IA.respostas);
-    else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) 
+   else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) 
         return escolherResposta('piadas', bancoDados.piadas.respostas);
     else if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) 
         return escolherResposta('politicas', bancoDados.politicas.respostas);
