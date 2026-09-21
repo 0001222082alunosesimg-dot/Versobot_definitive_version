@@ -66,7 +66,7 @@ function contemExpressao(mensagem, expressao) {
 }
 
 function jogar() {
-    return math.floor(math.random() *6) +1;
+    return Math.floor(Math.random() *6) +1;
 }
     
 function escolherResposta(categoria, listaRespostas) {
@@ -94,7 +94,7 @@ function obterRespostaBot(mensagem) {
     else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a)))
         return escolherResposta('azar', bancoDados.azar.respostas);
     else if (bancoDados.dads.chaves.some(ds => contemExpressao(mensagem, ds)))
-        return jogar;
+        return jogar();
     else if (bancoDados.hipoteses.chaves.some(hip => contemExpressao(mensagem, hip)))
         return escolherResposta('hipoteses', bancoDados.hipoteses.respostas);
     else if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) 
