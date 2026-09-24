@@ -87,24 +87,30 @@ function escolherResposta(categoria, listaRespostas) {
 
 function calcularMensagem(mensagem) {
     const expressao = mensagem.replace(/\s+/g, '');
-    const regex = /^(\d+(?:\.\d+)?)([\+\-\*\/])(\d+(?:\.\d+)?)\$/;
-    const match = expressao.match(regex);
+    let operador = '';
 
-    if (match) {
-        const n1 = parseFloat(match[1]);
-        const operador = match[2];
-        const n2 = parseFloat(match[3]);
+    if (expressao.includes('+')) operador = '+';
+    else if (expressao.includes('-')) operador = '-';
+    else if (expressao.includes('*')) operador = '*';
+    else if (expressao.includes('/')) operador = '/';
 
-        switch (operador) {
-            case '+': return `Resultado: ${n1 + n2}`;
-            case '-': return `Resultado: ${n1 - n2}`;
-            case '*': return `Resultado: ${n1 * n2}`;
-            case '/': return n2 === 0 ? "Erro: Divisão por zero não é permitida!" : `Resultado: ${n1 / n2}`;
-            default: return "Operador inválido.";
+    if (operador !== '') {
+        const partes = expressao.split(operador);
+        const n1 = parseFloat(partes[0]);
+        const n2 = parseFloat(partes[1]);
+
+        if (!isNaN(n1) && !isNaN(n2)) {
+            switch (operador) {
+                case '+': return `Resultado: ${n1 + n2}`;
+                case '-': return `Resultado: ${n1 - n2}`;
+                case '*': return `Resultado: ${n1 * n2}`;
+                case '/': return n2 === 0 ? "Erro: Divisão por zero não é permitida!" : `Resultado: ${n1 / n2}`;
+            }
         }
     }
     return null;
 }
+
 
 
 
