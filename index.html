@@ -48,7 +48,7 @@ const bancoDados = {
     tempo_g: { chaves: ['ovo ou galinha', 'ovo ou a galinha', 'galinha ou ovo', 'galinha ou o ovo'], respostas: ['El ovito foi el primerito! Los dinossauros botavam ovitos (yo acho)...', 'É óbvio que foi o ovo, meu! Os dinos!', 'O ovo. Mas se foi o ovo, quem botou ele?...'] },
     hipoteses: {chaves: ['hipotese', 'hipoteses', 'hipótese', 'hipóteses'], respostas: ['Pensando no impacto do uso excessivo das IAs, Yo pensei que a IA é uma ferramenta que veio para ficar, porém não deve ser usada como fonte única de pesquisa e de modo que não tire a autonomia do ser humano. Para isso, o uso responsável delas poderia ser conscientizado pelas escolas desde cedo.', 'Minha hipótese é que a IA é uma ferramenta que deve ser usada, mas de forma responsável e que não tire a autonomia humana.']},
     crono: {chaves: ['cronograma de estudo', 'rotina de estudo', 'cronograma de estudos', 'rotina de estudos'], respostas: ['Estude de uma a duas horas por dia, visando ter uma dificuldade "amiga" e evitando estudo passivo (apenas reler o conteúdo).', 'Tente esse: estude um pouco todos os dias, tenha regularidade, estude mais a matéria que tem dificuldade e arrase na prova!']},
-    dads: {chaves: ['dado', 'dados'], respostas: []}
+    dads: {chaves: ['dado', 'dados'], respostas: []},
 };
 
 let ultResposta = "Digite uma mensagem para iniciar.";
@@ -85,7 +85,33 @@ function escolherResposta(categoria, listaRespostas) {
     return respostaSelecionada;
 }
 
+function calcularMensagem(mensagem) {
+    const expressao = mensagem.replace(/\s+/g, '');
+    const regex = /^(\d+(?:\.\d+)?)([\+\-\*\/])(\d+(?:\.\d+)?)\$/;
+    const match = expressao.match(regex);
+
+    if (match) {
+        const n1 = parseFloat(match[1]);
+        const operador = match[2];
+        const n2 = parseFloat(match[3]);
+
+        switch (operador) {
+            case '+': return `Resultado: ${n1 + n2}`;
+            case '-': return `Resultado: ${n1 - n2}`;
+            case '*': return `Resultado: ${n1 * n2}`;
+            case '/': return n2 === 0 ? "Erro: Divisão por zero não é permitida!" : `Resultado: ${n1 / n2}`;
+            default: return "Operador inválido.";
+        }
+    }
+    return null;
+}
+
 function obterRespostaBot(mensagem) {
+    const calculo = calcularMensagem(mensagem);
+    if (calculo !== null) {
+        ult_resposta = calculo;
+        return calculo;
+    }
     if (bancoDados.anaforas.chaves.some(a => contemExpressao(mensagem, a))) {
         return `Repetindo: "${ultResposta}"`;
     }
@@ -94,7 +120,7 @@ function obterRespostaBot(mensagem) {
     else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a)))
         return escolherResposta('azar', bancoDados.azar.respostas);
     else if (bancoDados.dads.chaves.some(ds => contemExpressao(mensagem, ds)))
-        return jogar ();
+        return 'Caiu em: ${jogar}';
     else if (bancoDados.hipoteses.chaves.some(hip => contemExpressao(mensagem, hip)))
         return escolherResposta('hipoteses', bancoDados.hipoteses.respostas);
     else if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) 
