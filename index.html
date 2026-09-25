@@ -128,7 +128,7 @@ function obterRespostaBot(mensagem) {
     else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a)))
         return escolherResposta('azar', bancoDados.azar.respostas);
     else if (bancoDados.dads.chaves.some(ds => contemExpressao(mensagem, ds)))
-        return 'Caiu em' jogar();
+        return `Caiu em: ${jogar()}`;
     else if (bancoDados.hipoteses.chaves.some(hip => contemExpressao(mensagem, hip)))
         return escolherResposta('hipoteses', bancoDados.hipoteses.respostas);
     else if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) 
