@@ -1,0 +1,148 @@
+const historicoRespostas = {
+    saudacoes: [], despedidas: [], IA: [], azar: [], piadas: [], risadas: [], politicas: [], coisitas_curiositas: [], anaforas: [], tempo_g: [], hipoteses: [], crono: [], dads: []
+};
+
+const bancoDados = {
+    saudacoes: { chaves: ['oi','ola','olá','opa','bom','bão','bao','hola','hi','hello'], respostas: ['Oi','Estás bíen?','Hola! Como vai?','Olá, como posso ajudá-lo?','Opa! No que puedo ajudar-te?','Bom dia, no que puedo servir?'] },
+    despedidas: { chaves: ["tchau","adeus","falou",'fui','até mais','até logo'], respostas: ['Tchau','Adeus','Adios, mi amigo','Tchauzinho','Falou, rapá!'] },
+    IA: { chaves: ['ia','ias','ai','ais','inteligência artificial','inteligencia artificial','inteligências artificiais','inteligencias artificiais'], respostas: ['Segundo a PUCRS, a IA em sua essência é a capacidade das máquinas de pensar como seres humanos.','Segundo a AMAZON, a Inteligência Artificial (IA) é uma tecnologia transformadora que permite que as máquinas realizem tarefas semelhantes às humanas.','Uma IA é uma série de algoritmos treinados para realizar tarefas ao receber comandos.'] },
+    azar: { chaves: ['impacta','impactam','impacto','impactos','desafio','desafios'], respostas: ['Segundo o SENAC, as IAs têm tirado muita responsabilidade humana de decisões que deveriam ser tomadas por nós.','Segundo o SENAC, um dos principais desafios que a IA nos impõe é o descompasso entre avanço tecnológico e nossa capacidade de avaliar.','Segundo o Quantum Records, a IA atrapalha no desenvolvimento cognitivo da população.'] },
+    piadas: { chaves: ['piada','piadas','humor','comédia','comedia'], respostas: ['Sabe por que a galinha atravessou a rua? Para ver a missa do galo!','Um empregado falou para o chefe: "É melhor o senhor me dar um aumento logo, porque tem três empresas na minha cola.". Então o chefe indagou: "Quais empresas?", "A COPASA, a CEMIG e o SERASA!".','Fiquei confuso depois da aula de inglês, descobri que "car" significa carro, "men" significa homens. Isso siginifica que minha tia Carmen é um transformer?...','Um caipira chega à casa de um amigo e pergunta: "E aí, compadre, esse cachorro morde?". O amigo responde: "Morde não!". O caipira vai agradar o bicho e leva uma baita mordida. "Uai, você não disse que não mordia?". O amigo responde: "Mas esse aí não é o meu cachorro!".','"Alô, eu gostaria de falar com o João, por favor." - "É o próprio." - "Oi Próprio, pode passar pro João?".','Tinha dois caminhões voando. Um deles caiu e o outro continuou. Sabe por quê? Por que era um caminhão-pipa.','O bêbado atravessa a rua fora da faixa, e um caminhão buzina "BIBI!!!". O bêbado, todo atrapalhado, responde: "Eu bibi i num foi porco não...".','Por que a aranha é o animal mais carente do mundo? porque ela é um AracNeedYou.'] },
+    politicas: { chaves: ['guerra','presidente','eleições','eleiçoes','voto','vota','votar','candidato','político','politico'], respostas: ['Prefiro não me meter nesse assunto. Que tal perguntar sobre IAs?'] },
+    risadas: { chaves: ['kkk','kjkj','hahaha','haha','ha', 'hue'], respostas: ['Ha! Te fiz rir.','Não precisa disso, eu sei que sou el melhor','Yo soy el mas divertido del Brasil.','Isso foi por que você ouviu a mais sem graça.','Rindo do quê? Não tem graça...'] },
+    coisitas_curiositas: { chaves: ['curiosidade','curiosidades','curioso','interessante','legal'], respostas: ['Você sabia que o Everest fica mais alto a cada ano? Ele cresce cerca de 4 milímetros anualmente devido ao movimento das placas tectônicas.','Você sabia que a Antártida é o maior deserto do mundo? Um deserto é classificado pela quantidade de chuva que recebe, não pelo calor.','Existe intoxicação por água se consumida em excesso em pouco tempo.','A luz do Sol leva oito minutos para chegar à Terra. Se o Sol explodisse agora, só perceberíamos daqui a 8 minutos.','A ideia de IA surgiu na década de 1950 com Alan Turing, que criou um teste para avaliar se uma máquina pode pensar de verdade.'] },
+    anaforas: { chaves: ['repete','repita','de novo'], respostas: [] },
+    tempo_g: { chaves: ['ovo ou galinha', 'ovo ou a galinha', 'galinha ou ovo', 'galinha ou o ovo'], respostas: ['El ovito foi el primerito! Los dinossauros botavam ovitos (yo acho)...', 'É óbvio que foi o ovo, meu! Os dinos!', 'O ovo. Mas se foi o ovo, quem botou ele?...'] },
+    hipoteses: {chaves: ['hipotese', 'hipoteses', 'hipótese', 'hipóteses'], respostas: ['Pensando no impacto do uso excessivo das IAs, Yo pensei que a IA é uma ferramenta que veio para ficar, porém não deve ser usada como fonte única de pesquisa e de modo que não tire a autonomia do ser humano. Para isso, o uso responsável delas poderia ser conscientizado pelas escolas desde cedo.', 'Minha hipótese é que a IA é uma ferramenta que deve ser usada, mas de forma responsável e que não tire a autonomia humana.']},
+    crono: {chaves: ['cronograma de estudo', 'rotina de estudo', 'cronograma de estudos', 'rotina de estudos'], respostas: ['Estude de uma a duas horas por dia, visando ter uma dificuldade "amiga" e evitando estudo passivo (apenas reler o conteúdo).', 'Tente esse: estude um pouco todos os dias, tenha regularidade, estude mais a matéria que tem dificuldade e arrase na prova!']},
+    dads: {chaves: ['dado', 'dados'], respostas: []},
+};
+
+let ultResposta = "Digite uma mensagem para iniciar.";
+let ultCategoria = "saudacoes";
+
+function contemExpressao(mensagem, expressao) {
+    const msg = mensagem.toLowerCase();
+    const termo = expressao.toLowerCase();
+    if (termo.length <= 2) {
+        const regex = new RegExp(`\\b${termo}\\b`, 'i');
+        return regex.test(msg);
+    } else {
+        return msg.includes(termo);
+    }
+}
+
+function jogar() {
+    return Math.floor(Math.random() *6) +1;
+}
+    
+function escolherResposta(categoria, listaRespostas) {
+    let disponiveis = listaRespostas.filter(r => !historicoRespostas[categoria].includes(r));
+    if (disponiveis.length === 0) { 
+        historicoRespostas[categoria] = []; 
+        disponiveis = listaRespostas; 
+    }
+    const indiceAleatorio = Math.floor(Math.random() * disponiveis.length);
+    const respostaSelecionada = disponiveis[indiceAleatorio];
+    historicoRespostas[categoria].push(respostaSelecionada);
+    
+    ultResposta = respostaSelecionada;
+    ultCategoria = categoria;
+    
+    return respostaSelecionada;
+}
+
+function calcularMensagem(mensagem) {
+    const expressao = mensagem.replace(/\s+/g, '');
+    let operador = '';
+
+    if (expressao.includes('+')) operador = '+';
+    else if (expressao.includes('-')) operador = '-';
+    else if (expressao.includes('*')) operador = '*';
+    else if (expressao.includes('/')) operador = '/';
+
+    if (operador !== '') {
+        const partes = expressao.split(operador);
+        const n1 = parseFloat(partes[0]);
+        const n2 = parseFloat(partes[1]);
+
+        if (!isNaN(n1) && !isNaN(n2)) {
+            switch (operador) {
+                case '+': return `Resultado: ${n1 + n2}`;
+                case '-': return `Resultado: ${n1 - n2}`;
+                case '*': return `Resultado: ${n1 * n2}`;
+                case '/': return n2 === 0 ? "Erro: Divisão por zero não é permitida!" : `Resultado: ${n1 / n2}`;
+            }
+        }
+    }
+    return null;
+}
+
+
+
+
+function obterRespostaBot(mensagem) {
+    const calculo = calcularMensagem(mensagem);
+    if (calculo !== null) {
+        ult_resposta = calculo;
+        return calculo;
+    }
+    if (bancoDados.anaforas.chaves.some(a => contemExpressao(mensagem, a))) {
+        return `Repetindo: "${ultResposta}"`;
+    }
+    else if (bancoDados.crono.chaves.some(cr => contemExpressao(mensagem, cr)))
+        return escolherResposta('crono', bancoDados.crono.respostas);
+    else if (bancoDados.azar.chaves.some(a => contemExpressao(mensagem, a)))
+        return escolherResposta('azar', bancoDados.azar.respostas);
+    else if (bancoDados.dads.chaves.some(ds => contemExpressao(mensagem, ds)))
+        return `Caiu em: ${jogar()}`;
+    else if (bancoDados.hipoteses.chaves.some(hip => contemExpressao(mensagem, hip)))
+        return escolherResposta('hipoteses', bancoDados.hipoteses.respostas);
+    else if (bancoDados.IA.chaves.some(i => contemExpressao(mensagem, i))) 
+        return escolherResposta('IA', bancoDados.IA.respostas);
+   else if (bancoDados.piadas.chaves.some(p => contemExpressao(mensagem, p))) 
+        return escolherResposta('piadas', bancoDados.piadas.respostas);
+    else if (bancoDados.politicas.chaves.some(po => contemExpressao(mensagem, po))) 
+        return escolherResposta('politicas', bancoDados.politicas.respostas);
+    else if (bancoDados.risadas.chaves.some(r => contemExpressao(mensagem, r))) 
+        return escolherResposta('risadas', bancoDados.risadas.respostas);
+    else if (bancoDados.coisitas_curiositas.chaves.some(c => contemExpressao(mensagem, c))) 
+        return escolherResposta('coisitas_curiositas', bancoDados.coisitas_curiositas.respostas);
+    else if (bancoDados.tempo_g.chaves.some(tg => contemExpressao(mensagem, tg))) 
+        return escolherResposta('tempo_g', bancoDados.tempo_g.respostas);
+    else if (bancoDados.saudacoes.chaves.some(s => contemExpressao(mensagem, s))) 
+        return escolherResposta('saudacoes', bancoDados.saudacoes.respostas);
+    else if (bancoDados.despedidas.chaves.some(d => contemExpressao(mensagem, d))) 
+        return escolherResposta('despedidas', bancoDados.despedidas.respostas);
+
+    return 'Não entendi muito bem. Que tal pedir pra eu contar uma piada, dar um "oi" ou falar sobre IA?';
+}
+
+function enviarMensagem() {
+    const input = document.getElementById("userInput");
+    const mensagem = input.value.trim();
+    if (!mensagem) return;
+
+    adicionarMensagem(mensagem, "user-msg");
+    input.value = "";
+
+    setTimeout(() => {
+        const resposta = obterRespostaBot(mensagem);
+        adicionarMensagem(resposta, "bot-msg");
+    }, 400);
+}
+
+function adicionarMensagem(texto, classe) {
+    const chatBox = document.getElementById("chatBox");
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `message ${classe}`;
+    msgDiv.innerText = texto;
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        enviarMensagem();
+    }
+}
